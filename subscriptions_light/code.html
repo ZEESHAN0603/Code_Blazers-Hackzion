@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinSight — Subscriptions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0f172a",
+                    "primary-container": "#f1f5f9",
+                    "on-primary": "#ffffff",
+                    "secondary": "#334155",
+                    "surface": "#f8fafc",
+                    "on-surface": "#0f172a",
+                    "surface-variant": "#e2e8f0",
+                    "on-surface-variant": "#64748b",
+                    "outline": "#cbd5e1",
+                    "error": "#b91c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1.5rem",
+                    "lg": "2rem",
+                    "xl": "2.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: 'Manrope', sans-serif;
+            min-height: 100dvh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ethereal-blur {
+            position: fixed;
+            width: 40vw;
+            height: 40vw;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="pb-32 overflow-x-hidden">
+<div class="ethereal-blur bg-slate-200 top-0 -left-20"></div>
+<div class="ethereal-blur bg-indigo-50 bottom-0 -right-20"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-xl border-b border-slate-100 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200">
+<img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9IupOp9Rxsa-vSPkhKvsU-Eg9_3pu_cg1o_2rVQnYVsAeNBNGm17nyR5MyWEeOdZE66x6OizBC5AwQvEo6TZvjv4ViyQYHr48Bt4KmSNZDrqTFYK5jdj2kvQ3lY89qWMaMQjQ0ma09NYGtZSNp_dPhv5Of81G5xPCwDuUTM4MjdHRTg08EfrUbT3l0KzCGicmGJtijlpfK4FRokXb6cS0ryJQpiRenqNV07SmJjuXE-pDMqJdGVr8CmkcmKaARdFEdildC-tfFmI"/>
+</div>
+<h1 class="text-xl font-extrabold text-primary tracking-tight">FinSight</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-600">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="mt-24 px-6 max-w-lg mx-auto space-y-8">
+<!-- Summary Section -->
+<section class="grid grid-cols-1 gap-4">
+<div class="glass-card p-6 rounded-xl relative overflow-hidden">
+<p class="text-on-surface-variant font-medium text-xs uppercase tracking-wider mb-2">Monthly Total</p>
+<h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight">₹1,200</h2>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-emerald-600 text-xs font-bold">+2.4%</span>
+<span class="text-on-surface-variant text-xs">from last month</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl">
+<p class="text-on-surface-variant font-medium text-xs uppercase tracking-wider mb-2">Yearly Cost</p>
+<h2 class="text-4xl font-headline font-extrabold text-slate-700 tracking-tight">₹14,400</h2>
+<p class="text-on-surface-variant text-xs mt-4">Estimated recurring burden</p>
+</div>
+</section>
+<!-- Connect Gmail -->
+<section>
+<button class="w-full py-5 glass-card rounded-xl flex items-center justify-center gap-4 hover:bg-white transition-all border-dashed border-slate-300 group">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100 group-hover:scale-105 transition-transform">
+<img alt="Gmail" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOzdekeZtNGF6qV4iFUn-r4QgXHX8k0zcmIsY_xKx8cQuTGDkdE_NgS6WS--R8cBzHOBpQTtZN_ZSJGL6OC6Vx0sch79PIQpnPW2q5bk9d5y-TUC7F9w6d6Bx39nLfX-fersKaZEOpJ_J_iuc85-jFjWdE0-NvRu8FbdP72zWv2HnUhg6QyzSoLWNHg6FiBh-tam5JtRb4FX411zCP9gIpZUh60-IkJMSBUJIpN74MffKrbSwlhoraHSJEDy2F0g6PqTS796oqAo4"/>
+</div>
+<div class="text-left">
+<p class="font-bold text-primary">Connect Gmail</p>
+<p class="text-xs text-on-surface-variant">Sync recurring subscriptions</p>
+</div>
+<span class="material-symbols-outlined ml-auto mr-4 text-slate-300" data-icon="chevron_right">chevron_right</span>
+</button>
+</section>
+<!-- Detected Subs List -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-lg font-headline font-extrabold text-primary">Subscriptions</h3>
+<span class="text-[10px] text-primary font-bold px-3 py-1 bg-slate-100 rounded-full uppercase tracking-widest">3 Active</span>
+</div>
+<div class="space-y-3">
+<!-- Sub Item: Netflix -->
+<div class="glass-card p-4 rounded-xl flex items-center gap-4 group hover:border-slate-300 transition-colors">
+<div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+<span class="material-symbols-outlined text-[#E50914]" data-icon="movie">movie</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-primary">Netflix</p>
+<p class="text-xs text-on-surface-variant">Next: 14 Oct</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary tracking-tight">₹649</p>
+<p class="text-[10px] font-bold uppercase text-slate-400">Premium</p>
+</div>
+</div>
+<!-- Sub Item: Spotify -->
+<div class="glass-card p-4 rounded-xl flex items-center gap-4 group hover:border-slate-300 transition-colors">
+<div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+<span class="material-symbols-outlined text-[#1DB954]" data-icon="music_note">music_note</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-primary">Spotify</p>
+<p class="text-xs text-on-surface-variant">Next: 21 Oct</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary tracking-tight">₹119</p>
+<p class="text-[10px] font-bold uppercase text-slate-400">Family</p>
+</div>
+</div>
+<!-- Sub Item: Google One -->
+<div class="glass-card p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-primary group hover:border-slate-300 transition-colors">
+<div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+<span class="material-symbols-outlined text-primary" data-icon="cloud">cloud</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-primary">Google One</p>
+<p class="text-xs text-on-surface-variant">Next: 02 Nov</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary tracking-tight">₹130</p>
+<p class="text-[10px] font-bold uppercase text-slate-400">100 GB</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Manual Entry Form -->
+<section class="pb-8">
+<div class="glass-card p-8 rounded-xl">
+<h3 class="text-lg font-headline font-extrabold text-primary mb-6">Add New</h3>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase tracking-[0.2em] px-1">Service Name</label>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none placeholder:text-slate-400 text-sm" placeholder="e.g. Adobe Creative Cloud" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase tracking-[0.2em] px-1">Amount (₹)</label>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none placeholder:text-slate-400 text-sm" placeholder="0.00" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase tracking-[0.2em] px-1">Billing Cycle</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-3 px-2 rounded-full bg-primary text-white font-bold text-xs" type="button">Monthly</button>
+<button class="py-3 px-2 rounded-full bg-slate-100 text-slate-600 font-bold text-xs hover:bg-slate-200" type="button">Quarterly</button>
+<button class="py-3 px-2 rounded-full bg-slate-100 text-slate-600 font-bold text-xs hover:bg-slate-200" type="button">Yearly</button>
+</div>
+</div>
+<button class="w-full bg-primary py-5 rounded-full text-white font-extrabold text-sm tracking-widest uppercase shadow-lg shadow-slate-200 active:scale-[0.98] transition-all">
+                        Save Subscription
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- AI Advisor Floating Button -->
+<button class="fixed bottom-28 right-6 w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-xl z-50 group">
+<span class="material-symbols-outlined text-2xl text-white group-hover:rotate-12 transition-transform" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-50 bg-white/80 backdrop-blur-2xl rounded-full border border-slate-200 shadow-2xl flex justify-around items-center px-4 py-2">
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[9px] uppercase tracking-tighter font-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-[9px] uppercase tracking-tighter font-bold mt-1">Wallet</span>
+</a>
+<!-- ACTIVE TAB -->
+<a class="flex flex-col items-center justify-center bg-primary text-white rounded-full p-3 h-12 w-12 -mt-1 shadow-lg" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions" style="font-variation-settings: 'FILL' 1;">subscriptions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
+<span class="text-[9px] uppercase tracking-tighter font-bold mt-1">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[9px] uppercase tracking-tighter font-bold mt-1">User</span>
+</a>
+</nav>
+</body></html>

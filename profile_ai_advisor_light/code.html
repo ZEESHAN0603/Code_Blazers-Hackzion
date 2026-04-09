@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile — FinSight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0f172a",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#f1f5f9",
+                    "on-primary-container": "#0f172a",
+                    "secondary": "#334155",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#f8fafc",
+                    "on-secondary-container": "#0f172a",
+                    "surface": "#f8fafc",
+                    "on-surface": "#0f172a",
+                    "surface-variant": "#ffffff",
+                    "on-surface-variant": "#64748b",
+                    "outline": "#e2e8f0",
+                    "outline-variant": "#f1f5f9",
+                    "background": "#f8fafc",
+                    "on-background": "#0f172a",
+                    "error": "#b91c1c",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "9999px",
+                    "lg": "9999px",
+                    "xl": "9999px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 20px rgba(15, 23, 42, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/10">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-2xl border-b border-primary/5 flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border border-primary/10" data-alt="Close-up professional portrait of a stylish young person with soft studio lighting and a clean tech-focused aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWeKFlVq7NbCSBLgeh8LxPTlPFMKTTWIF9Twns5VIzMBiRkX_c5Cl0qzyeoh6iFkcIyhUdVkTnsnQWlF_vg8IFe-hDDh7mqfDab-XzXdvzXV3rAH9wN7CUF8iQ5ZrqTKmSW2O8WuN0PFaxV70K5DvqNhgPnPDqZ2HnpYOH7Sh0woTRk1bDPtx_TNpmaSSwprXjYRlVDFElBKRC-G1hEYoZtxHFufCxj4pGq-k6FZ1oyz_RCQrhABcfbH0uWZjMKrCPOqQVdnf90rs"/>
+<h1 class="font-headline tracking-tight text-2xl font-black text-primary">FinSight</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-primary/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-28 pb-32 px-6 max-w-2xl mx-auto space-y-10">
+<!-- Profile Header -->
+<section class="flex flex-col items-center text-center space-y-4">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/5 blur-3xl rounded-full scale-125 opacity-40"></div>
+<img alt="Shebly S Profile" class="relative w-32 h-32 rounded-full border-4 border-white shadow-2xl object-cover" data-alt="Modern minimalist portrait of a confident tech professional, atmospheric lighting, deep blue and violet color tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi_cnmjzEoVn1qpxk9ZEvKLB8rZxXH_NWQ7ppa1JI6N_zxa8sLV9mPfZCmF4HHTYJ_4fZn2GE4eAXFSYcsdfcjr46Xw5aQBZrxjBHAArlq_5fAm3ygLGdhnQBAOqyRGO121aNmuqaBqV-2BqJn3eg24stTQFu4cN-yaoqcyvEazFmuE7bYGQl65fSDovRGTZW83bzZo_IgTrWrzOnLROeLhIPmU2rRkosgloK4zXL_42v08SrSIWya3TzcLuwnhTm-jeVR-YcS2jE"/>
+<button class="absolute bottom-1 right-1 bg-primary text-on-primary p-2.5 rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div>
+<h2 class="font-headline font-extrabold text-3xl tracking-tight text-primary">Shebly S</h2>
+<p class="text-on-surface-variant font-medium">shebly@email.com</p>
+</div>
+<div class="flex gap-2">
+<span class="px-6 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-[10px] font-extrabold tracking-[0.2em] uppercase">Premium Member</span>
+</div>
+</section>
+<!-- Settings Options -->
+<section class="space-y-4">
+<h3 class="font-headline text-[10px] font-black uppercase tracking-[0.3em] text-on-surface-variant/60 px-4">Account Preferences</h3>
+<div class="space-y-3">
+<!-- Notifications -->
+<button class="glass-panel ghost-border w-full flex items-center justify-between p-5 rounded-full group hover:shadow-xl hover:-translate-y-0.5 transition-all duration-500">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div class="text-left">
+<p class="font-bold text-primary">Notifications</p>
+<p class="text-xs text-on-surface-variant">Alerts, updates &amp; smart nudges</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Privacy Settings -->
+<button class="glass-panel ghost-border w-full flex items-center justify-between p-5 rounded-full group hover:shadow-xl hover:-translate-y-0.5 transition-all duration-500">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<div class="text-left">
+<p class="font-bold text-primary">Privacy Settings</p>
+<p class="text-xs text-on-surface-variant">Data usage &amp; security protocols</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- Logout -->
+<button class="glass-panel ghost-border w-full flex items-center justify-between p-5 rounded-full group hover:bg-error/5 transition-all duration-500">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<div class="text-left">
+<p class="font-bold text-error">Logout</p>
+<p class="text-xs text-on-surface-variant">Securely sign out of session</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</div>
+</section>
+</main>
+<!-- AI Advisor FAB -->
+<button class="fixed right-6 bottom-32 z-50 w-16 h-16 rounded-full bg-primary shadow-2xl flex items-center justify-center text-on-primary hover:scale-110 active:scale-95 transition-all duration-500 group">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="absolute -top-12 right-0 bg-primary px-4 py-2 rounded-full text-[10px] font-black text-on-primary opacity-0 group-hover:opacity-100 transition-all uppercase tracking-widest pointer-events-none">Ask Advisor</div>
+</button>
+<!-- AI Chat Overlay (Active State) -->
+<div class="fixed inset-0 z-[60] flex items-end justify-center px-4 pb-24 sm:pb-32 pointer-events-none">
+<div class="w-full max-w-lg glass-panel ghost-border rounded-[2.5rem] shadow-2xl flex flex-col pointer-events-auto overflow-hidden">
+<!-- Chat Header -->
+<div class="flex items-center justify-between p-6 border-b border-primary/5">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></div>
+<span class="font-headline font-black tracking-widest text-[10px] uppercase text-primary">FinSight AI Advisor</span>
+</div>
+<button class="p-2 hover:bg-primary/5 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">close</span>
+</button>
+</div>
+<!-- Chat Content -->
+<div class="p-6 space-y-6 max-h-[442px] overflow-y-auto">
+<!-- User Message -->
+<div class="flex justify-end">
+<div class="max-w-[80%] bg-primary/5 border border-primary/5 p-5 rounded-[2rem] rounded-tr-none text-primary shadow-sm">
+<p class="text-sm font-semibold leading-relaxed">Can I afford a ₹20,000 phone?</p>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex justify-start items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-lg">
+<span class="material-symbols-outlined text-sm text-on-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="max-w-[85%] space-y-3">
+<div class="bg-white p-5 rounded-[2rem] rounded-tl-none text-primary border border-primary/5 shadow-sm">
+<p class="text-sm leading-relaxed">You can afford it but it may delay your <span class="text-primary font-black underline decoration-2 underline-offset-4">laptop goal</span> by 2 months.</p>
+</div>
+<!-- Suggestion Buttons -->
+<div class="flex flex-wrap gap-2">
+<button class="px-5 py-2 rounded-full bg-primary/5 text-[10px] font-black text-primary uppercase tracking-widest border border-primary/10 hover:bg-primary/10 transition-colors">Adjust Goal</button>
+<button class="px-5 py-2 rounded-full bg-primary/5 text-[10px] font-black text-primary uppercase tracking-widest border border-primary/10 hover:bg-primary/10 transition-colors">See Impact</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-6 pt-2">
+<div class="flex items-center gap-2 bg-primary/5 rounded-full px-6 py-2 border border-primary/5 focus-within:border-primary/20 focus-within:bg-white transition-all">
+<input class="bg-transparent border-none focus:ring-0 text-sm flex-grow py-3 text-primary font-medium placeholder:text-on-surface-variant/50" placeholder="Type your financial query..." type="text"/>
+<button class="text-primary hover:scale-110 transition-transform p-1">
+<span class="material-symbols-outlined font-variation-settings-'FILL'-1">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] z-50 flex justify-around items-center px-4 py-2 bg-white/80 backdrop-blur-3xl shadow-2xl max-w-lg rounded-full border border-primary/5">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[9px] uppercase tracking-[0.2em] font-black mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[9px] uppercase tracking-[0.2em] font-black mt-1">Expenses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span class="text-[9px] uppercase tracking-[0.2em] font-black mt-1">Subs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">track_changes</span>
+<span class="text-[9px] uppercase tracking-[0.2em] font-black mt-1">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full px-5 py-3 active:scale-95 duration-300 shadow-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[9px] uppercase tracking-[0.2em] font-black mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
