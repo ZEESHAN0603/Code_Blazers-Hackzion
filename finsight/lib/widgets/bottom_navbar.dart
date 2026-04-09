@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import '../core/constants.dart';
+import '../core/constants.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -14,56 +14,51 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-      height: 70,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.white.withOpacity(0.2)),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColors.navyDark.withValues(alpha: 0.05),
             blurRadius: 20,
-            offset: const Offset(0, 10),
+            offset: const Offset(0, -4),
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(0, Icons.home_rounded, 'Home'),
-          _buildNavItem(1, Icons.account_balance_wallet_rounded, 'Expenses'),
-          _buildNavItem(2, Icons.subscriptions_rounded, 'Subs'),
-          _buildNavItem(3, Icons.flag_rounded, 'Goals'),
-          _buildNavItem(4, Icons.person_rounded, 'Profile'),
+      child: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: onTap,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: AppColors.accentBlue,
+        unselectedItemColor: AppColors.textLight,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        unselectedLabelStyle: const TextStyle(fontSize: 12),
+        items: [
+          _buildNavItem(Icons.grid_view_rounded, Icons.grid_view, 'Home', 0),
+          _buildNavItem(Icons.account_balance_wallet_rounded, Icons.account_balance_wallet_outlined, 'Expenses', 1),
+          _buildNavItem(Icons.layers_rounded, Icons.layers_outlined, 'Subs', 2),
+          _buildNavItem(Icons.flag_rounded, Icons.flag_outlined, 'Goals', 3),
+          _buildNavItem(Icons.person_rounded, Icons.person_outline_rounded, 'Profile', 4),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(int index, IconData icon, String label) {
-    bool isSelected = currentIndex == index;
-    return GestureDetector(
-      onTap: () => onTap(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
-            size: 28,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-        ],
+  BottomNavigationBarItem _buildNavItem(IconData activeIcon, IconData icon, String label, int index) {
+    final isSelected = currentIndex == index;
+    return BottomNavigationBarItem(
+      icon: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.accentBlue.withValues(alpha: 0.1) : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(isSelected ? activeIcon : icon),
       ),
+      label: label,
     );
   }
 }

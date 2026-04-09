@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/glass_card.dart';
+import '../core/constants.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -10,76 +10,85 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final List<Map<String, String>> _messages = [
-    {'role': 'ai', 'content': 'Hello Shebly! How can I help you with your finances today?'},
+    {'role': 'ai', 'content': 'Hello Shebly! I am your AI Financial Advisor. How can I help you optimize your portfolio today?'},
   ];
   final TextEditingController _controller = TextEditingController();
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   void _sendMessage(String text) {
     if (text.isEmpty) return;
-    setState(() {
-      _messages.add({'role': 'user', 'content': text});
-      _controller.clear();
-    });
+    
+    final int insertIndex = _messages.length;
+    _messages.add({'role': 'user', 'content': text});
+    _listKey.currentState?.insertItem(insertIndex);
+    _controller.clear();
 
-    // Simple AI Response Mock
     Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        if (text.toLowerCase().contains('spend')) {
-          _messages.add({'role': 'ai', 'content': 'Your food spending increased by ₹3,200 this month. You should watch your Swiggy orders!'});
-        } else if (text.toLowerCase().contains('save')) {
-          _messages.add({'role': 'ai', 'content': 'You can save more by setting a goal for a laptop or reducing entertainment subscriptions.'});
-        } else {
-          _messages.add({'role': 'ai', 'content': "That's a great question. I'll analyze your patterns and let you know!"});
-        }
-      });
+      final int aiInsertIndex = _messages.length;
+      String response = "That's a great question. Based on current market trends, I'd suggest reviewing your fixed costs.";
+      if (text.toLowerCase().contains('spend')) {
+        response = 'Your food spending is trending 12% higher than last month. Consider local alternatives.';
+      } else if (text.toLowerCase().contains('save')) {
+        response = 'You could potentially save ₹4,500 more by optimizing your subscriptions.';
+      }
+      
+      _messages.add({'role': 'ai', 'content': response});
+      _listKey.currentState?.insertItem(aiInsertIndex);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('AI Advisor'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        title: const Text('AI Financial Intelligence', style: TextStyle(color: AppColors.navyDark, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        elevation: 0.5,
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF1E3A8A), Color(0xFF7C3AED)],
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(20),
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      final msg = _messages[index];
-                      final isAI = msg['role'] == 'ai';
-                      return Align(
-                        alignment: isAI ? Alignment.centerLeft : Alignment.centerRight,
-                        child: GlassCard(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          child: Text(msg['content']!),
+          Expanded(
+            child: AnimatedList(
+              key: _listKey,
+              initialItemCount: _messages.length,
+              padding: const EdgeInsets.all(20),
+              itemBuilder: (context, index, animation) {
+                final msg = _messages[index];
+                final isAI = msg['role'] == 'ai';
+                
+                return FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: Offset(isAI ? -0.1 : 0.1, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: Align(
+                      alignment: isAI ? Alignment.centerLeft : Alignment.centerRight,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+                        decoration: BoxDecoration(
+                          color: isAI ? Colors.white : AppColors.accentBlue,
+                          borderRadius: BorderRadius.circular(16).copyWith(
+                            bottomLeft: isAI ? const Radius.circular(0) : const Radius.circular(16),
+                            bottomRight: isAI ? const Radius.circular(16) : const Radius.circular(0),
+                          ),
+                          boxShadow: AppStyles.softShadow,
                         ),
-                      );
-                    },
+                        child: Text(
+                          msg['content']!,
+                          style: TextStyle(color: isAI ? AppColors.navyDark : Colors.white, fontSize: 15),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                _buildInputArea(),
-              ],
+                );
+              },
             ),
           ),
+          _buildInputArea(),
         ],
       ),
     );
@@ -88,40 +97,54 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   Widget _buildInputArea() {
     return Container(
       padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [BoxShadow(color: AppColors.navyDark.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, -4))],
+      ),
       child: Column(
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildChip('How can I save money?'),
-                _buildChip('Can I afford a purchase?'),
-                _buildChip('Set a financial goal'),
+                _buildChip('Analyze my spending'),
+                _buildChip('Subscription optimization'),
+                _buildChip('Market outlook'),
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
-                child: GlassCard(
+                child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(color: AppColors.slateBg, borderRadius: BorderRadius.circular(12)),
                   child: TextField(
                     controller: _controller,
                     onSubmitted: _sendMessage,
                     decoration: const InputDecoration(
-                      hintText: 'Ask me anything...',
+                      hintText: 'Type a message...',
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
-              FloatingActionButton(
-                onPressed: () => _sendMessage(_controller.text),
-                mini: true,
-                backgroundColor: Colors.white,
-                child: const Icon(Icons.send_rounded, color: Color(0xFF7C3AED)),
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: () => _sendMessage(_controller.text),
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: const BoxDecoration(
+                    gradient: AppColors.accentBlueGradient,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                ),
               ),
             ],
           ),
@@ -134,10 +157,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: ActionChip(
-        label: Text(label, style: const TextStyle(fontSize: 12)),
+        label: Text(label, style: const TextStyle(fontSize: 12, color: AppColors.navyDark)),
         onPressed: () => _sendMessage(label),
-        backgroundColor: Colors.white.withOpacity(0.1),
-        side: BorderSide(color: Colors.white.withOpacity(0.2)),
+        backgroundColor: AppColors.accentBlue.withValues(alpha: 0.05),
+        side: BorderSide.none,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
   }

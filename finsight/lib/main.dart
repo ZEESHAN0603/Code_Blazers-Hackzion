@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/theme.dart';
 import 'services/mock_data_service.dart';
+import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/expenses_screen.dart';
 import 'screens/subscriptions_screen.dart';
@@ -9,26 +10,31 @@ import 'screens/goals_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/chatbot_screen.dart';
 import 'widgets/bottom_navbar.dart';
+import 'services/supabase_service.dart';
+import 'core/constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SupabaseService.initialize();
+  
   runApp(
     ChangeNotifierProvider(
       create: (context) => MockDataService(),
-      child: const FinSightApp(),
+      child: const SpendWiseApp(),
     ),
   );
 }
 
-class FinSightApp extends StatelessWidget {
-  const FinSightApp({super.key});
+class SpendWiseApp extends StatelessWidget {
+  const SpendWiseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FinSight',
+      title: 'SpendWise',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      home: const MainScaffold(),
+      theme: AppTheme.lightTheme,
+      home: const LoginScreen(),
     );
   }
 }
@@ -54,21 +60,24 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      body: Stack(
-        children: [
-          // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF0F172A), Color(0xFF1E1B4B), Color(0xFF312E81)],
-              ),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.05, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
             ),
-          ),
-          _screens[_currentIndex],
-        ],
+          );
+        },
+        child: Container(
+          key: ValueKey<int>(_currentIndex),
+          child: _screens[_currentIndex],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
@@ -82,11 +91,16 @@ class _MainScaffoldState extends State<MainScaffold> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ChatbotScreen()),
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => const ChatbotScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            ),
           );
         },
-        backgroundColor: const Color(0xFF7C3AED),
-        child: const Icon(Icons.forum_rounded, color: Colors.white),
+        backgroundColor: AppColors.accentBlue,
+        child: const Icon(Icons.auto_awesome_rounded, color: Colors.white),
       ),
     );
   }

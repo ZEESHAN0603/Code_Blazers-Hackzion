@@ -4,6 +4,7 @@ class Transaction {
   final double amount;
   final String category;
   final DateTime date;
+  final String paymentMethod; // 'Card', 'UPI', 'Cash'
 
   Transaction({
     required this.id,
@@ -11,5 +12,6 @@ class Transaction {
     required this.amount,
     required this.category,
     required this.date,
+    this.paymentMethod = 'UPI',
   });
 }

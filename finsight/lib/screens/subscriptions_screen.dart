@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/mock_data_service.dart';
 import '../widgets/subscription_tile.dart';
-import '../widgets/glass_card.dart';
-import '../models/subscription_model.dart';
+import '../core/constants.dart';
 
 class SubscriptionsScreen extends StatelessWidget {
   const SubscriptionsScreen({super.key});
@@ -12,152 +11,202 @@ class SubscriptionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Provider.of<MockDataService>(context);
 
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: AppColors.slateBg,
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            const SizedBox(height: 20),
-            const Text(
-              'Subscriptions',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            _buildCustomHeader(),
+            const SizedBox(height: 10),
+            _buildGmailSyncCard(context, data),
+            const SizedBox(height: 10),
+            _buildSubscriptionStats(data),
+            const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildSectionTitle('Active Subscriptions'),
             ),
-            const SizedBox(height: 20),
-            _buildSummaryRow(data),
-            const SizedBox(height: 20),
-            _buildConnectButton(context),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: data.subscriptions.length,
-                itemBuilder: (context, index) {
-                  return SubscriptionTile(
-                    subscription: data.subscriptions[index],
-                    onDelete: () => data.removeSubscription(data.subscriptions[index].id),
-                  );
-                },
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(20),
+              itemCount: data.subscriptions.length,
+              itemBuilder: (context, index) {
+                return SubscriptionTile(
+                  subscription: data.subscriptions[index],
+                  index: index,
+                  onDelete: () => data.removeSubscription(data.subscriptions[index].id),
+                );
+              },
             ),
-            _buildAddSubscriptionButton(context),
-            const SizedBox(height: 100),
+            const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSummaryRow(MockDataService data) {
-    return Row(
-      children: [
-        Expanded(
-          child: GlassCard(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const Text('Monthly Total', style: TextStyle(fontSize: 12, color: Colors.white60)),
-                Text('₹${data.subscriptionsTotal}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: GlassCard(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const Text('Yearly Cost', style: TextStyle(fontSize: 12, color: Colors.white60)),
-                Text('₹${data.subscriptionsTotal * 12}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildConnectButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Gmail connected. Subscriptions detected.')),
-          );
-        },
-        icon: const Icon(Icons.mail_outline_rounded),
-        label: const Text('Connect Gmail'),
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        ),
+  Widget _buildCustomHeader() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Managed Services', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+          const Text('Subscriptions', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.navyDark)),
+        ],
       ),
     );
   }
 
-  Widget _buildAddSubscriptionButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: GlassCard(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: InkWell(
-          onTap: () => _showAddSubscriptionDialog(context),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildSectionTitle(String title) {
+    return Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppColors.navyDark));
+  }
+
+  Widget _buildGmailSyncCard(BuildContext context, MockDataService data) {
+    final gmailController = TextEditingController();
+    
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: AppStyles.softShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Icon(Icons.add),
-              SizedBox(width: 8),
-              Text('Add Subscription'),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: Colors.redAccent.withValues(alpha: 0.1), shape: BoxShape.circle),
+                child: const Icon(Icons.mail_rounded, color: Colors.redAccent, size: 20),
+              ),
+              const SizedBox(width: 12),
+              const Text('Email Sync', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.navyDark)),
             ],
           ),
-        ),
+          const SizedBox(height: 16),
+          const Text('Enter your Gmail ID to automatically discover recurring payments.', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+          const SizedBox(height: 16),
+          TextField(
+            controller: gmailController,
+            decoration: InputDecoration(
+              hintText: 'yourname@gmail.com',
+              filled: true,
+              fillColor: AppColors.slateBg,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                if (gmailController.text.contains('@')) {
+                  _simulateGmailScan(context, data);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.accentBlue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: const Text('Extract Subscriptions', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _showAddSubscriptionDialog(BuildContext context) {
-    final nameController = TextEditingController();
-    final priceController = TextEditingController();
-    String cycle = 'monthly';
+  Widget _buildSubscriptionStats(MockDataService data) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: AppColors.navyGradient,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: AppStyles.deepShadow,
+      ),
+      child: Row(
+        children: [
+          _buildStatBox('Monthly', '₹${data.subscriptionsTotal.toStringAsFixed(0)}'),
+          Container(width: 1, height: 40, color: Colors.white24, margin: const EdgeInsets.symmetric(horizontal: 20)),
+          _buildStatBox('Detected', '${data.subscriptions.length} Services'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatBox(String label, String value) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+          Text(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  void _showGmailConnect(BuildContext context, MockDataService data) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Service Intelligence'),
+        content: const Text('Connect your primary inbox to automatically detect recurring service invoices.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              _simulateGmailScan(context, data);
+            },
+            child: const Text('Authenticate'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _simulateGmailScan(BuildContext context, MockDataService data) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(color: AppColors.accentBlue),
+            SizedBox(height: 20),
+            Text('Scanning for recurring patterns...'),
+          ],
+        ),
+      ),
+    );
+
+    final results = await data.scanGmailForSubscriptions();
+    Navigator.pop(context);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1E293B),
-        title: const Text('Add Subscription'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Service Name')),
-            TextField(controller: priceController, decoration: const InputDecoration(labelText: 'Price'), keyboardType: TextInputType.number),
-            DropdownButtonFormField<String>(
-              value: cycle,
-              items: ['monthly', 'yearly']
-                  .map((c) => DropdownMenuItem(value: c, child: Text(c.toUpperCase())))
-                  .toList(),
-              onChanged: (val) => cycle = val!,
-              decoration: const InputDecoration(labelText: 'Billing Cycle'),
-            ),
-          ],
-        ),
+        title: const Text('Detection Complete'),
+        content: Text('Found ${results.length} recurring services in your inbox.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Ignore')),
           ElevatedButton(
             onPressed: () {
-              if (nameController.text.isNotEmpty && priceController.text.isNotEmpty) {
-                Provider.of<MockDataService>(context, listen: false).addSubscription(
-                  Subscription(
-                    id: DateTime.now().toString(),
-                    serviceName: nameController.text,
-                    price: double.parse(priceController.text),
-                    billingCycle: cycle,
-                  ),
-                );
-                Navigator.pop(context);
-              }
+              for (var sub in results) { data.addSubscription(sub); }
+              Navigator.pop(context);
             },
-            child: const Text('Add'),
+            child: const Text('Integrate All'),
           ),
         ],
       ),
