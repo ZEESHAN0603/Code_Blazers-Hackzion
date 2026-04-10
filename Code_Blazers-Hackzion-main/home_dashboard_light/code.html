@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinSight Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "primary": "#0f172a",
+              "primary-container": "#e2e8f0",
+              "on-primary": "#ffffff",
+              "secondary": "#334155",
+              "secondary-container": "#f1f5f9",
+              "surface": "#f8fafc",
+              "on-surface": "#0f172a",
+              "on-surface-variant": "#64748b",
+              "outline": "#cbd5e1",
+              "error": "#b91c1c",
+              "error-container": "#fee2e2"
+            },
+            "borderRadius": {
+              "DEFAULT": "9999px",
+              "lg": "2rem",
+              "xl": "3rem",
+              "full": "9999px"
+            },
+            "fontFamily": {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.04);
+        }
+        .liquid-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            min-height: 100dvh;
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-primary min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-2xl border-b border-slate-200/50">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4o4tMUdPORTovepS8N436LzJATp_Z9hvXaDW-75dGfEXai4OnPUoSeY_ic5mEuH7OQaLozIfsbY82PE30FKL1I2b_FL6drOoYXeWbiAUn7cqmkVjJqja2VXBMt_eAvSh87IZxAJ03p0kjBMmzrY4Y2EI4KWNsv_FPus4OuOzPDyvN3rl8A67ylrP4oi-buGqHVM0xIL6a-FN5t77Qbi_FLhKArEFyYW8YqvaMAIazXH6mf79zkAdgM3tlg8TR_yCQTWJLiQGmXDY"/>
+</div>
+<h1 class="font-headline tracking-tight text-2xl font-black text-primary">FinSight</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-28 px-6 max-w-7xl mx-auto">
+<!-- Hero Greeting -->
+<section class="mb-10">
+<p class="text-on-surface-variant font-semibold mb-1 uppercase tracking-widest text-xs">Good Morning, Shebly</p>
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-primary">Your financial health is <span class="text-blue-600">stable</span> today.</h2>
+</section>
+<!-- Main Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<!-- Monthly Spending -->
+<div class="glass-card p-6 rounded-3xl flex flex-col justify-between min-h-[160px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 rounded-full bg-primary/5 text-primary">
+<span class="material-symbols-outlined">payments</span>
+</span>
+<span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">+12%</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Monthly Spending</p>
+</div>
+<p class="text-3xl font-headline font-bold mt-2">₹32,000</p>
+</div>
+<!-- Savings This Month -->
+<div class="glass-card p-6 rounded-3xl flex flex-col justify-between min-h-[160px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 rounded-full bg-primary/5 text-primary">
+<span class="material-symbols-outlined">savings</span>
+</span>
+<span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Goal 80%</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Savings This Month</p>
+</div>
+<p class="text-3xl font-headline font-bold mt-2 text-blue-700">₹8,000</p>
+</div>
+<!-- Subscriptions Total -->
+<div class="glass-card p-6 rounded-3xl flex flex-col justify-between min-h-[160px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 rounded-full bg-primary/5 text-primary">
+<span class="material-symbols-outlined">subscriptions</span>
+</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Subscriptions Total</p>
+</div>
+<p class="text-3xl font-headline font-bold mt-2">₹1,200</p>
+</div>
+<!-- Predicted Spending -->
+<div class="glass-card p-6 rounded-3xl flex flex-col justify-between min-h-[160px] overflow-hidden relative">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 rounded-full bg-primary/5 text-primary">
+<span class="material-symbols-outlined">auto_graph</span>
+</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Predicted Spending</p>
+</div>
+<p class="text-3xl font-headline font-bold mt-2 opacity-60">₹41,000</p>
+</div>
+</div>
+<!-- Insights & Analytics Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Category Chart -->
+<div class="lg:col-span-1 glass-card p-8 rounded-3xl">
+<h3 class="font-headline font-bold text-xl mb-8 text-primary">Spending Analysis</h3>
+<div class="relative w-48 h-48 mx-auto mb-10 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-slate-100" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="18"></circle>
+<circle class="text-slate-900" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="150" stroke-linecap="round" stroke-width="18"></circle>
+<circle class="text-blue-600" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="400" stroke-linecap="round" stroke-width="18"></circle>
+<circle class="text-slate-400" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="460" stroke-linecap="round" stroke-width="18"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Total</span>
+<span class="text-2xl font-headline font-black text-primary">₹32k</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-2 rounded-2xl hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+<span class="text-sm font-semibold">Food</span>
+</div>
+<span class="text-sm font-bold text-primary">45%</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-2xl hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
+<span class="text-sm font-semibold">Transport</span>
+</div>
+<span class="text-sm font-bold text-primary">35%</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-2xl hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+<span class="text-sm font-semibold">Shopping</span>
+</div>
+<span class="text-sm font-bold text-primary">20%</span>
+</div>
+</div>
+</div>
+<!-- Alerts & AI Insights -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Overspending Alert -->
+<div class="bg-red-50/80 backdrop-blur-md border border-red-100 p-6 rounded-3xl flex items-start gap-5">
+<div class="p-3 bg-red-100 rounded-full text-red-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-red-800 text-lg">Overspending Alert</h4>
+<p class="text-red-700/80 leading-relaxed font-medium">Food spending increased by 18% compared to last week. You're currently ₹2,400 over your typical budget for this category.</p>
+</div>
+</div>
+<!-- AI Insight Card -->
+<div class="liquid-gradient p-[1.5px] rounded-3xl overflow-hidden shadow-xl shadow-slate-200">
+<div class="bg-white/95 backdrop-blur-xl p-8 rounded-[calc(2rem-1.5px)] h-full">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-slate-900">neurology</span>
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-900">Intelligence Report</span>
+</div>
+<h3 class="text-2xl font-headline font-bold mb-4 text-primary">Dining Habits Insight</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-8">You spent <span class="text-slate-900 font-extrabold underline decoration-blue-500/30 underline-offset-4">₹3,200 more</span> on restaurants this month. Switching to weekend-only dining could save you up to <span class="text-slate-900 font-extrabold">₹12,000</span> by year-end.</p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 rounded-full liquid-gradient text-white font-bold text-sm shadow-lg shadow-slate-300 active:scale-95 transition-all">Optimize Budget</button>
+<button class="px-8 py-4 rounded-full bg-slate-100 text-primary font-bold text-sm hover:bg-slate-200 transition-all active:scale-95">View Details</button>
+</div>
+</div>
+</div>
+<!-- Recent Transaction -->
+<div class="glass-card p-6 rounded-3xl">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline font-bold text-primary">Recent Movements</h4>
+<span class="text-xs font-bold text-blue-600 uppercase cursor-pointer hover:underline tracking-widest">See all</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-900">shopping_bag</span>
+</div>
+<div>
+<p class="font-bold text-primary">Apple Store</p>
+<p class="text-xs text-on-surface-variant font-medium">Electronics • Today</p>
+</div>
+</div>
+<p class="font-bold text-primary">-₹1,499</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-900">restaurant</span>
+</div>
+<div>
+<p class="font-bold text-primary">The Golden Spoon</p>
+<p class="text-xs text-on-surface-variant font-medium">Dining • Yesterday</p>
+</div>
+</div>
+<p class="font-bold text-primary">-₹2,100</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating AI Advisor Button -->
+<button class="fixed bottom-28 right-8 z-50 w-16 h-16 rounded-full liquid-gradient text-white shadow-2xl flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[92%] max-w-lg z-50 flex justify-around items-center px-2 py-2 bg-white/70 backdrop-blur-3xl rounded-full border border-slate-200/50 shadow-2xl shadow-slate-300">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-slate-900 text-white rounded-full px-6 py-3 active:scale-90 duration-300 ease-out transition-all" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-headline text-[9px] uppercase tracking-widest font-bold mt-0.5">Home</span>
+</a>
+<!-- Expenses -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-slate-900 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-headline text-[9px] uppercase tracking-widest font-bold mt-1">Expenses</span>
+</a>
+<!-- Subs -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-slate-900 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span class="font-headline text-[9px] uppercase tracking-widest font-bold mt-1">Subs</span>
+</a>
+<!-- Goals -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-slate-900 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">track_changes</span>
+<span class="font-headline text-[9px] uppercase tracking-widest font-bold mt-1">Goals</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-3 hover:text-slate-900 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-headline text-[9px] uppercase tracking-widest font-bold mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+python-doctr[pytorch]
+requests
+python-multipart
+pillow
+regex
+torch
+torchvision
+supabase
+python-dotenv
