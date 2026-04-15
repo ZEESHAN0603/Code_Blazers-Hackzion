@@ -111,24 +111,108 @@ class SubscriptionsScreen extends StatelessWidget {
           const SizedBox(height: 16),
           const Text('Track your recurring payments by adding them manually to your dashboard.', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => _showAddDialog(context, data),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.navyDark,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                padding: const EdgeInsets.symmetric(vertical: 14),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => _showManualAddDialog(context, data),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.navyDark,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  child: const Text('Add Manually', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
               ),
-              child: const Text('Add Manually', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => _showDetectDialog(context, data),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accentBlue,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  child: const Text('Auto Detect', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  void _showAddDialog(BuildContext context, FinanceService data) {
+  void _showManualAddDialog(BuildContext context, FinanceService data) {
+    final nameController = TextEditingController();
+    final amountController = TextEditingController();
+    String cycle = 'monthly';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) {
+          return AlertDialog(
+            title: const Text('Add Subscriptions'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Service Name')),
+                const SizedBox(height: 12),
+                TextField(controller: amountController, decoration: const InputDecoration(labelText: 'Amount (₹)'), keyboardType: TextInputType.number),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String>(
+                  value: cycle,
+                  items: const [
+                    DropdownMenuItem(value: 'monthly', child: Text('Monthly')),
+                    DropdownMenuItem(value: 'yearly', child: Text('Yearly')),
+                    DropdownMenuItem(value: 'weekly', child: Text('Weekly')),
+                  ],
+                  onChanged: (v) => setState(() => cycle = v!),
+                  decoration: const InputDecoration(labelText: 'Billing Cycle'),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+              ElevatedButton(
+                onPressed: () async {
+                  final name = nameController.text.trim();
+                  final amt = double.tryParse(amountController.text.trim()) ?? 0.0;
+                  if (name.isEmpty || amt <= 0) return;
+                  
+                  Navigator.pop(ctx);
+                  
+                  try {
+                    await data.addSubscription(Subscription(
+                      id: '',
+                      serviceName: name,
+                      price: amt,
+                      billingCycle: cycle,
+                    ));
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Subscription added!', style: TextStyle(color: Colors.white)), backgroundColor: AppColors.accentGreen),
+                      );
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: $e')),
+                      );
+                    }
+                  }
+                },
+                child: const Text('Add')
+              ),
+            ],
+          );
+        }
+      ),
+    );
+  }
+
+  void _showDetectDialog(BuildContext context, FinanceService data) {
     final email = TextEditingController();
     
     showDialog(

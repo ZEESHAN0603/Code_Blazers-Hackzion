@@ -11,7 +11,7 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final List<Map<String, String>> _messages = [
-    {'role': 'ai', 'content': 'Hello! I am your AI Financial Advisor powered by Gemma. How can I help you optimize your finances today?'},
+    {'role': 'ai', 'content': 'Hello! I am your AI Financial Advisor powered by Mistral. How can I help you optimize your finances today?'},
   ];
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
